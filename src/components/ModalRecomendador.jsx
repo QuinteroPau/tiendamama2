@@ -5,6 +5,7 @@ import ProductList from './ProductList';
 function ModalRecomendador({ onClose, allProducts, user, onAddToCart }) {
   const [piedraRecomendada, setPiedraRecomendada] = useState(null);
 
+const [consultaRealizada, setConsultaRealizada] = useState(false);
   const productosFiltrados =
     typeof piedraRecomendada === 'string'
       ? allProducts.filter((p) =>
@@ -25,11 +26,13 @@ const tiposDisponibles = Array.from(
         <RecomendadorIA
   tiposDisponibles={tiposDisponibles}
   onResultado={(respuesta) => {
+    setConsultaRealizada(true); // marcar que el usuario pidió algo
     const texto = respuesta.toLowerCase();
     const match = tiposDisponibles.find((tipo) => texto.includes(tipo));
     setPiedraRecomendada(match || 'no-disponible');
   }}
 />
+
 
 
         {piedraRecomendada && piedraRecomendada !== 'no-disponible' ? (
@@ -43,7 +46,8 @@ const tiposDisponibles = Array.from(
               onAddToCart={onAddToCart}
             />
           </>
-        ) : piedraRecomendada === 'no-disponible' ? (
+        ) : piedraRecomendada === 'no-disponible' && consultaRealizada ? (
+
           <div className="mensaje-no-disponible">
             <p>
               No tengo creaciones disponibles con ese mineral ahora mismo, pero puedes escribirme y haré una personalizada para ti.
