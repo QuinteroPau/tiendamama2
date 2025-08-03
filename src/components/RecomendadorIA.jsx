@@ -6,19 +6,26 @@ function RecomendadorIA({ onResultado, tiposDisponibles }) {
   const [loading, setLoading] = useState(false);
 
   const obtenerRecomendacion = async () => {
-    setLoading(true);
-    const res = await fetch('https://tiendamama-backend.onrender.com/api/recomendar', {
-  method: 'POST',
-  body: JSON.stringify({ mensaje: input, tiposDisponibles }),  // incluye tipos
-  headers: { 'Content-Type': 'application/json' }
-});
+  setLoading(true);
+  const res = await fetch('https://tiendamama-backend.onrender.com/api/recomendar', {
+    method: 'POST',
+    body: JSON.stringify({ mensaje: input, tiposDisponibles }),
+    headers: { 'Content-Type': 'application/json' }
+  });
 
+  const data = await res.json();
+  setRespuesta(data.mensaje); // solo el texto espiritual
 
-    const data = await res.json();
-    setRespuesta(data.recomendacion);
-    setLoading(false);
-    if (onResultado) onResultado(data.recomendacion);
-  };
+  if (onResultado) {
+    onResultado({
+      mineral: data.mineral,
+      esRecomendacion: data.es_recomendacion
+    });
+  }
+
+  setLoading(false);
+};
+
 
   return (
     <div className="ia-section">
