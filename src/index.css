@@ -952,3 +952,21 @@ textarea[name="desc"] {
     width: 100%;
   }
 }
+.checkout-btn {
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  padding: 12px;
+  margin-top: 20px;
+  width: 100% !important;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+
+.checkout-btn:hover {
+  background: linear-gradient(135deg, var(--secondary), var(--accent));
+  transform: scale(1.05); /* Efecto de crecimiento suave */
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Más profundidad */
+}

@@ -33,6 +33,18 @@ function CartModal({ cart, onClose, onRemove, total }) {
       startY.current = null;
     }
   };
+function generarMensajeWhatsApp(cart) {
+  let mensaje = '¡Hola Sheila! Me gustaría hacer este pedido:\n\n';
+
+  cart.forEach((item, index) => {
+    mensaje += `${index + 1}. ${item.nombre} - €${item.precio}\n`;
+  });
+
+  const total = cart.reduce((acc, item) => acc + item.precio, 0).toFixed(2);
+  mensaje += `\n¿Está disponible?\n`;
+
+  return mensaje;
+}
 
   return (
     <div className="cart-modal-overlay" onClick={closeWithAnimation}>
@@ -64,7 +76,46 @@ function CartModal({ cart, onClose, onRemove, total }) {
             <p className="total">Total: €{total}</p>
           </div>
         )}
+        {cart.length > 0 && (
+  <a
+    href={`https://wa.me/34619652983?text=${encodeURIComponent(generarMensajeWhatsApp(cart))}`}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <button className="checkout-btn">Finalizar compra por WhatsApp</button>
+  </a>
+)}
+        {/* 
+        {cart.length > 0 && (
+  <button
+    className="checkout-btn"
+    onClick={async () => {
+      try {
+        const response = await fetch('http://localhost:3000/create-checkout-session', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ cart }),
+        });
+
+        const data = await response.json();
+
+        if (data.url) {
+          window.location.href = data.url; // 🔁 redirección a Stripe Checkout
+        } else {
+          alert("Error al crear la sesión de pago");
+        }
+      } catch (err) {
+        console.error('Error al conectar con Stripe:', err);
+        alert('Error al conectar con Stripe');
+      }
+    }}
+  >
+    Finalizar compra
+  </button>
+)}*/}
+
       </div>
+      
     </div>
   );
 }
