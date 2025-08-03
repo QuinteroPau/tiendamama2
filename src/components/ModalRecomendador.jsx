@@ -50,7 +50,7 @@ const tiposDisponibles = Array.from(
             </p>
             <a
               className="boton-contacto"
-              href="https://wa.me/34612345678?text=Hola%20Sheila,%20me%20interesa%20una%20creación%20con%20ese%20mineral"
+              href="https://wa.me/34619652983?text=Hola%20Sheila,%20me%20interesa%20una%20creación%20con%20ese%20mineral"
               target="_blank"
               rel="noopener noreferrer"
             >
