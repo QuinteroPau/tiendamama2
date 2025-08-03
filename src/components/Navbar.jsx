@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
 function Navbar({ user, rol, cartCount, onLogout, onLoginClick, onAbrirModalIA, onAbrirCarrito}) {
-  
+const handleLinkClick = () => {
+  setMenuAbierto(false);
+};
 const [menuAbierto, setMenuAbierto] = useState(false);
   return (
     
     <nav className="navbar">
       <div className="navbar-left">
         
-        <Link to="/">
+        <Link to="/" >
           <img src="/logo.png" alt="Logo Tienda" className="logo-img" />
         </Link>{user && (
     <a className="cart-icon mobile-cart mobile-only" onClick={onAbrirCarrito} aria-label="Abrir carrito">
@@ -39,9 +41,9 @@ const [menuAbierto, setMenuAbierto] = useState(false);
   ☰
 </button>
       <div className={`navbar-center ${menuAbierto ? 'mostrar' : 'ocultar'}`}>
-        <Link to="/">Inicio</Link>
-        <a onClick={onAbrirModalIA}>Recomendador</a>
-<Link to="/creaciones">Creaciones</Link>
+        <Link to="/" onClick={handleLinkClick}>Inicio</Link>
+        <a onClick={() => { handleLinkClick(); onAbrirModalIA(); }}>Recomendador</a>
+<Link to="/creaciones" onClick={handleLinkClick}>Creaciones</Link>
 
         {/* ✅ Añadir creación visible solo para admins */}
         {rol === 'admin' && (
@@ -52,14 +54,14 @@ const [menuAbierto, setMenuAbierto] = useState(false);
         {user && (
     <>
       <span className="user mobile-only">{user.email}</span>
-      <button className="logout-btn mobile-only" onClick={onLogout}>
+      <button className="logout-btn mobile-only" onClick={() => { handleLinkClick(); onLogout(); }}>
         Cerrar sesión
       </button>
     </>
   )}
 
   {!user && (
-    <button className="login-btn mobile-only" onClick={onLoginClick}>
+    <button className="login-btn mobile-only" onClick={() => { handleLinkClick(); onLoginClick(); }}>
       Iniciar sesión
     </button>
   )}
