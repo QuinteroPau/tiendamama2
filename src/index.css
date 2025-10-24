@@ -8,6 +8,11 @@
   --light: #fdf6f0;        /* Blanco cálido – papel antiguo, calma */
   --dark: #3e2e2a;         /* Marrón oscuro – profundidad y contraste */
   --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  --glass-blur: blur(10px);
+  --glass-backdrop: blur(10px) saturate(180%);
 }
 
 * {
@@ -16,7 +21,9 @@
   box-sizing: border-box;
   font-family: 'Quicksand', sans-serif;
 }
-
+.glass, .navbar, .product-card, .modal-recomendador, .auth-modal, .cart-modal, .cart-notification, .admin-form, .product-detail-card {
+  transition: all 0.3s ease;
+}
 body {
   background-image: url('/tapiz.avif'); /* Cambia esta ruta si es necesario */
   background-repeat: repeat;
@@ -41,18 +48,14 @@ h1, h2, h3 {
 }
 
 h2 {
-  background: linear-gradient(135deg, var(--accent), var(--secondary));
+  background: rgba(255, 255, 255, 0.25);
+  color: var(--primary);
   width: fit-content;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding: 0.5rem 2rem;
   font-size: 2rem;
   border-radius: 10px;
-  border-bottom: 2px solid var(--secondary);
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  color:white;
+  margin: 2rem auto;
 }
-
 /* Product Styles */
 .products {
   margin-bottom: 3rem;
@@ -70,11 +73,14 @@ h2 {
 }
 
 .product-card {
-  background: white;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 16px;
   padding: 1.5rem;
-  box-shadow: var(--shadow);
-  transition: transform 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,7 +88,9 @@ h2 {
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-8px);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
 }
 
 .product-image {
@@ -170,14 +178,16 @@ button:hover {
   text-align: right;
   margin-top: 1rem;
 }
-
 .admin-form {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   max-width: 500px;
   margin: 3rem auto;
   padding: 2rem;
-  border-radius: 16px;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   font-family: inherit;
 }
 
@@ -266,87 +276,121 @@ button:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
+.modal-recomendador,
+/* Auth Modal Styles */
 .auth-modal {
-  background: white;
-  padding: 2rem;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  padding: 2.5rem;
   width: 90%;
   max-width: 400px;
   position: relative;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
+
+.auth-modal-content {
+  width: 100%;
+}
+
 .auth-modal-content h1 {
-  color: #6b4f3a; /* Earthy brown */
+  color: var(--primary);
   font-family: 'Playfair Display', serif;
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   font-size: 1.8rem;
+  font-weight: 700;
 }
 
 .auth-modal-content form {
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+  width: 100%;
 }
 
 .auth-modal-content input {
+  width: 100%;
   padding: 0.8rem 1rem;
-  border: 1px solid #d1c7bd;
+  border: 1px solid rgba(123, 79, 53, 0.3);
   border-radius: 8px;
   font-size: 1rem;
-  background-color: #fffdfb;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .auth-modal-content input:focus {
   outline: none;
-  border-color: #a38b7a; /* Warm brown */
-  box-shadow: 0 0 0 3px rgba(163, 139, 122, 0.2);
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(194, 136, 178, 0.2);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .auth-modal-content button[type="submit"] {
-  background-color: #8c6a56; /* Muted terracotta */
+  background: linear-gradient(135deg, var(--accent), var(--secondary));
   color: white;
   padding: 0.8rem;
   border: none;
   border-radius: 8px;
   font-size: 1rem;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
   margin-top: 0.5rem;
 }
 
 .auth-modal-content button[type="submit"]:hover {
-  background-color: #6b4f3a; /* Darker brown */
+  background: linear-gradient(135deg, var(--secondary), var(--accent));
+  transform: translateY(-1px);
 }
 
 .auth-modal-content button[type="submit"]:disabled {
-  background-color: #c4b8ad;
+  background: #ccc;
   cursor: not-allowed;
+  transform: none;
 }
 
 .auth-modal-content p {
-  color: #6b4f3a;
+  color: var(--primary);
   font-size: 0.9rem;
+  text-align: center;
+  margin-top: 1rem;
 }
 
 .auth-modal-content a {
-  color: #8c6a56;
+  color: var(--secondary);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.3s;
 }
 
 .auth-modal-content a:hover {
-  color: #6b4f3a;
+  color: var(--accent);
   text-decoration: underline;
+}
+
+/* Remove any conflicting admin-form styles from auth modal */
+.auth-modal-content .admin-form {
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  max-width: none;
 }
 
 .error {
@@ -380,15 +424,17 @@ button:hover {
 }
 
 .hero {
-  margin: 3rem auto; /* Centrado horizontal */
-  background: rgba(255, 255, 255);
+  margin: 3rem auto;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 4rem 2rem;
   text-align: center;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   margin-bottom: 3rem;
   max-width: 800px;
-  
 }
 .hero h1 {
   font-size: 2.8rem;
@@ -523,10 +569,13 @@ button:hover {
   display: flex;
   flex-direction: row;
   gap: 2rem;
-  background-color: white;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
   padding: 2rem;
-  border-radius: 12px;
-  box-shadow: var(--shadow);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   max-width: 900px;
   width: 100%;
 }
@@ -633,12 +682,15 @@ textarea[name="desc"] {
 
 /* Contenedor lateral del modal */
 .cart-modal {
-  background: #fffaf3;
+  background: rgba(250, 245, 240, 0.9); /* Slightly tinted for warmth */
+  backdrop-filter: blur(25px) saturate(180%);
+  -webkit-backdrop-filter: blur(25px) saturate(180%);
+  border-left: 1px solid rgba(255, 255, 255, 0.4);
   color: #3b2f2f;
   width: 500px;
   padding: 1.5rem;
-  padding-top: 160px; /* ⬅️ Ajuste importante */
-  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.3);
+  padding-top: 160px;
+  box-shadow: -8px 0 32px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
   height: 100%;
   position: relative;
@@ -695,14 +747,16 @@ textarea[name="desc"] {
   position: fixed;
   bottom: 1.5rem;
   right: 1.5rem;
-  background-color: #fff;
-  border: 1px solid var(--accent);
-  box-shadow: var(--shadow);
+  background: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
   padding: 1rem 1.5rem;
-  border-radius: 12px;
+  border-radius: 16px;
   z-index: 1001;
   animation: fadeInUp 0.3s ease-out;
-  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .cart-notification.disappear {
@@ -969,4 +1023,55 @@ textarea[name="desc"] {
   background: linear-gradient(135deg, var(--secondary), var(--accent));
   transform: scale(1.05); /* Efecto de crecimiento suave */
   box-shadow: 0 8px 16px rgba(0,0,0,0.2); /* Más profundidad */
+}
+
+/* Glassmorphism base class */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-backdrop);
+  -webkit-backdrop-filter: var(--glass-backdrop);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+}
+
+/* Enhanced glass variants */
+.glass-light {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px) saturate(200%);
+  -webkit-backdrop-filter: blur(12px) saturate(200%);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-dark {
+  background: rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.glass-accent {
+  background: rgba(123, 79, 53, 0.15); /* Using your primary color */
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  border: 1px solid rgba(123, 79, 53, 0.2);
+}
+
+.glass-btn {
+  background: rgba(123, 79, 53, 0.2); /* Your primary color */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(123, 79, 53, 0.3);
+  color: var(--primary);
+  border-radius: 12px;
+  padding: 0.8rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.glass-btn:hover {
+  background: rgba(123, 79, 53, 0.3);
+  border: 1px solid rgba(123, 79, 53, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }

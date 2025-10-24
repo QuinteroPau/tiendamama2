@@ -4,9 +4,7 @@ import { supabase } from './supabaseClient';
 import AdminProductForm from './components/AdminProductForm';
 import Auth from './components/Auth';
 import Navbar from './components/Navbar';
-import RecomendadorIA from './components/RecomendadorIA';
 import ProductList from './components/ProductList';
-import ModalRecomendador from './components/ModalRecomendador';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import ProductDetail from './components/ProductDetail';
 import CartModal from './components/CartModal';
@@ -25,8 +23,6 @@ function App() {
   const [productoAñadido, setProductoAñadido] = useState(null);
 
   const [showAuthModal, setShowAuthModal] = useState(false);
-  const [mostrarIA, setMostrarIA] = useState(false);
-  const [mostrarModalIA, setMostrarModalIA] = useState(false);
 const [mostrarCarrito, setMostrarCarrito] = useState(false);
 const total = cart.reduce((acc, item) => acc + item.precio, 0).toFixed(2);
 
@@ -110,7 +106,6 @@ if (storedCart) {
   localStorage.removeItem('carrito');
 }}
         onLoginClick={() => setShowAuthModal(true)}
-        onAbrirModalIA={() => setMostrarModalIA(true)} 
         onAbrirCarrito={() => setMostrarCarrito(true)}
 
       />
@@ -147,20 +142,9 @@ if (storedCart) {
                   <br />Elijo cada mineral según su vibración y lo que estás viviendo, para que recibas no solo un accesorio, sino un amuleto con alma. 
                   <br />Aquí todo está hecho con calma, presencia y amor. Porque cuando algo se crea desde el corazón... brilla distinto
                 </p>
-                <button className="hero-btn" onClick={() => setMostrarModalIA(true)}>
-                  Conecta con tu energía
-                </button>
               </section>
 
-              {/* 🔮 Modal Recomendador */}
-              {mostrarModalIA && (
-                <ModalRecomendador
-                  onClose={() => setMostrarModalIA(false)}
-                  allProducts={products}
-                  user={user}
-                  onAddToCart={addToCart}
-                />
-              )}
+            
 
               {/* Productos */}
               <ProductList

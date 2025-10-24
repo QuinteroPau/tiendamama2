@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 function ProductList({ products, onAddToCart, user }) {
   return (
     <section className="products" id="productos">
-      <h2>Creaciones</h2>
       <div className="product-list">
         {products.map((product) => (
           <div key={product.id} className="product-card-wrapper">
