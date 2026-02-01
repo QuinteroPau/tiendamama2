@@ -70,7 +70,6 @@ function AdminProductList({ onProductChanged }) {
             </div>
             <div className="admin-product-info">
               <h3>{product.nombre}</h3>
-              {product.tipo && <span className="admin-product-tipo">{product.tipo}</span>}
               <p className="admin-product-precio">€{product.precio}</p>
             </div>
             <div className="admin-product-actions">
