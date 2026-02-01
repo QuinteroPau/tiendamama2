@@ -89,7 +89,7 @@ function generarMensajeWhatsApp(cart) {
     target="_blank"
     rel="noopener noreferrer"
   >
-    <button className="checkout-btn">Finalizar compra por WhatsApp</button>
+    <button className="checkout-btn">Pedir minerales por WhatsApp</button>
   </a>
 )}
         {/* 
