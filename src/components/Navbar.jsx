@@ -51,8 +51,8 @@ function Navbar({ user, rol, cartCount, onLogout, onLoginClick, onAbrirModalIA, 
           Creaciones
         </NavLink>
 
-        {/* Admin link - visible only for admins */}
-        {rol === 'admin' && (
+        {/* Admin link - visible only for admins with session */}
+        {user && rol === 'admin' && (
           <NavLink to="/admin" className={({ isActive }) => `admin-link nav-link ${isActive ? 'active' : ''}`} onClick={handleLinkClick}>
             Gestionar creaciones
           </NavLink>

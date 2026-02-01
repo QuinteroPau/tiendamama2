@@ -146,7 +146,7 @@ const handleSave = async () => {
   </button>
 )}
 
-              {rol === 'admin' && (
+              {user && rol === 'admin' && (
                 <button onClick={() => setEditing(true)} style={{ marginTop: '1rem' }}>
                   Editar producto
                 </button>
