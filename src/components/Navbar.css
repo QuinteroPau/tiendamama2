@@ -1,3 +1,8 @@
+/* Compensar scrollbar cuando el carrito está abierto */
+body.cart-modal-open .navbar {
+  padding-right: calc(2rem + var(--scrollbar-width, 0px));
+}
+
 .navbar {
   position: fixed;
   top: 0;
@@ -33,7 +38,8 @@
   gap: 2rem;
 }
 
-.navbar-center a {
+.navbar-center a,
+.navbar-center .nav-link {
   color: var(--primary);
   text-decoration: none;
   font-weight: 500;
@@ -42,11 +48,13 @@
   cursor: pointer;
 }
 
-.navbar-center a:hover {
+.navbar-center a:hover,
+.navbar-center .nav-link:hover {
   color: var(--secondary);
 }
 
-.navbar-center a::after {
+.navbar-center a::after,
+.navbar-center .nav-link::after {
   content: '';
   position: absolute;
   bottom: -5px;
@@ -57,8 +65,15 @@
   transition: width 0.3s;
 }
 
-.navbar-center a:hover::after {
+.navbar-center a:hover::after,
+.navbar-center .nav-link:hover::after,
+.navbar-center .nav-link.active::after {
   width: 100%;
+}
+
+.navbar-center .nav-link.active {
+  color: var(--secondary);
+  font-weight: 600;
 }
 
 .navbar-right {

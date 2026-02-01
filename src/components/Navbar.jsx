@@ -1,5 +1,5 @@
 import './Navbar.css';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useState } from 'react';
 
 function Navbar({ user, rol, cartCount, onLogout, onLoginClick, onAbrirModalIA, onAbrirCarrito}) {
@@ -44,14 +44,18 @@ function Navbar({ user, rol, cartCount, onLogout, onLoginClick, onAbrirModalIA, 
 
       {/* Mobile menu - only visible when hamburger is clicked */}
       <div className={`navbar-center ${menuAbierto ? 'mostrar' : 'ocultar'}`}>
-        <Link to="/" onClick={handleLinkClick}>Inicio</Link>
-        <Link to="/creaciones" onClick={handleLinkClick}>Creaciones</Link>
+        <NavLink to="/" onClick={handleLinkClick} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+          Inicio
+        </NavLink>
+        <NavLink to="/creaciones" onClick={handleLinkClick} className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+          Creaciones
+        </NavLink>
 
         {/* Admin link - visible only for admins */}
         {rol === 'admin' && (
-          <Link to="/admin" className="admin-link" onClick={handleLinkClick}>
-            Añadir creación
-          </Link>
+          <NavLink to="/admin" className={({ isActive }) => `admin-link nav-link ${isActive ? 'active' : ''}`} onClick={handleLinkClick}>
+            Gestionar creaciones
+          </NavLink>
         )}
 
         {/* Mobile-only user section */}

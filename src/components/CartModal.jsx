@@ -6,9 +6,16 @@ function CartModal({ cart, onClose, onRemove, total }) {
   const modalRef = useRef();
 
   useEffect(() => {
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.classList.add('cart-modal-open');
+    document.body.style.setProperty('--scrollbar-width', `${scrollbarWidth}px`);
     document.body.style.overflow = 'hidden';
+    document.body.style.paddingRight = `${scrollbarWidth}px`;
     return () => {
+      document.body.classList.remove('cart-modal-open');
+      document.body.style.removeProperty('--scrollbar-width');
       document.body.style.overflow = '';
+      document.body.style.paddingRight = '';
     };
   }, []);
 

@@ -1,5 +1,5 @@
 // src/components/ProductDetail.jsx
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 
@@ -82,6 +82,7 @@ const handleSave = async () => {
 
   return (
     <section className="product-detail">
+      <Link to="/creaciones" className="back-link">← Volver a creaciones</Link>
       <div className="product-detail-card">
         {editing ? (
   <div className="image-edit-container">
@@ -122,7 +123,7 @@ const handleSave = async () => {
           {editing ? (
             <>
               <input type="text" name="nombre" value={form.nombre} onChange={handleInputChange} />
-              <input type="number" name="precio" value={form.precio} onChange={handleInputChange} />
+              <input type="text" name="precio" value={form.precio} onChange={handleInputChange} />
               <textarea name="desc_long" value={form.desc_long} onChange={handleInputChange}></textarea>
               <textarea name="desc" value={form.desc} onChange={handleInputChange}></textarea>
               <div className="editor-actions">
@@ -147,7 +148,7 @@ const handleSave = async () => {
 
               {rol === 'admin' && (
                 <button onClick={() => setEditing(true)} style={{ marginTop: '1rem' }}>
-                  ✏️ Editar producto
+                  Editar producto
                 </button>
               )}
             </>

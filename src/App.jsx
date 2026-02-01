@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react';
 import './index.css';
 import { supabase } from './supabaseClient';
 import AdminProductForm from './components/AdminProductForm';
+import AdminProductList from './components/AdminProductList';
 import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import ProductList from './components/ProductList';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
+import AdminLayout from './components/AdminLayout';
 import ProductDetail from './components/ProductDetail';
 import CartModal from './components/CartModal';
 import CartNotification from './components/CartNotification';
@@ -112,19 +114,26 @@ if (storedCart) {
 
       <Routes>
         <Route
-  path="/admin"
-  element={
-    rol === null ? (
-      <p>Cargando...</p>
-    ) : rol === 'admin' ? (
-      <div className="admin-container">
-        <AdminProductForm onProductAdded={fetchProducts} />
-      </div>
-    ) : (
-      <Navigate to="/" />
-    )
-  }
-/>
+          path="/admin"
+          element={
+            rol === null ? (
+              <p>Cargando...</p>
+            ) : rol === 'admin' ? (
+              <AdminLayout />
+            ) : (
+              <Navigate to="/" />
+            )
+          }
+        >
+          <Route
+            index
+            element={<AdminProductList onProductChanged={fetchProducts} />}
+          />
+          <Route
+            path="nueva"
+            element={<AdminProductForm onProductAdded={fetchProducts} />}
+          />
+        </Route>
 
         <Route
           path="/"
@@ -142,6 +151,7 @@ if (storedCart) {
                   <br />Elijo cada mineral según su vibración y lo que estás viviendo, para que recibas no solo un accesorio, sino un amuleto con alma. 
                   <br />Aquí todo está hecho con calma, presencia y amor. Porque cuando algo se crea desde el corazón... brilla distinto
                 </p>
+                <Link to="/creaciones" className="hero-btn">Ver creaciones</Link>
               </section>
 
             

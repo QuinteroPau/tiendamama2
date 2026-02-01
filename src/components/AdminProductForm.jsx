@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 
 function AdminProductForm({ onProductAdded }) {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     nombre: '',
     tipo: '',
@@ -68,6 +70,7 @@ function AdminProductForm({ onProductAdded }) {
       setSuccess(true);
       if (onProductAdded) onProductAdded();
       resetForm();
+      setTimeout(() => navigate('/admin'), 1000);
     } catch (error) {
       setErrorMsg(error.message || 'Error al guardar el producto');
     } finally {
@@ -88,11 +91,12 @@ function AdminProductForm({ onProductAdded }) {
 
   return (
     <div className="admin-form">
-      <h2>Añadir nueva creación</h2>
+      <Link to="/admin" className="admin-back-link">← Volver a la lista</Link>
+      <h2>Nueva creación</h2>
       <form onSubmit={handleSubmit}>
         <input type="text" name="nombre" placeholder="Nombre" value={form.nombre} onChange={handleChange} required />
         <input type="text" name="tipo" placeholder="Piedra" value={form.tipo} onChange={handleChange} required />
-        <input type="number" step="0.01" name="precio" placeholder="Precio" value={form.precio} onChange={handleChange} required />
+        <input type="text" name="precio" placeholder="Precio" value={form.precio} onChange={handleChange} required />
         <textarea name="desc" placeholder="Descripción corta" value={form.desc} onChange={handleChange} required></textarea>
         <textarea name="desc_long" placeholder="Descripción larga" value={form.desc_long} onChange={handleChange} required></textarea>
         <input type="file" name="imagen" accept="image/*" onChange={handleChange} />

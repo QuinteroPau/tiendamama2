@@ -9,12 +9,14 @@ function ProductList({ products, onAddToCart, user }) {
           <div key={product.id} className="product-card-wrapper">
             <Link to={`/producto/${product.id}`} className="product-card-link">
               <div className="product-card">
-                {product.foto && (
+                {product.foto ? (
                   <img
                     src={product.foto}
                     alt={product.nombre}
                     className="product-image"
                   />
+                ) : (
+                  <div className="product-image product-image-placeholder">Sin imagen</div>
                 )}
                 <h3>{product.nombre}</h3>
                 <p className="desc">{product.desc}</p>
