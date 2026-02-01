@@ -6,7 +6,7 @@ import AdminProductList from './components/AdminProductList';
 import Auth from './components/Auth';
 import Navbar from './components/Navbar';
 import ProductList from './components/ProductList';
-import { HashRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate, Link } from 'react-router-dom';
 import AdminLayout from './components/AdminLayout';
 import ProductDetail from './components/ProductDetail';
 import CartModal from './components/CartModal';
