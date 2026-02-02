@@ -15,8 +15,7 @@ function Navbar({ user, rol, cartCount, onLogout, onLoginClick, onAbrirModalIA, 
         <Link to="/" >
           <img src="/logo.png" alt="Logo Tienda" className="logo-img" />
         </Link>
-        {user && (
-          <a className="cart-icon mobile-cart mobile-only" onClick={onAbrirCarrito} aria-label="Abrir carrito">
+        <a className="cart-icon mobile-cart mobile-only" onClick={onAbrirCarrito} aria-label="Abrir carrito">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 64 64"
@@ -34,7 +33,6 @@ function Navbar({ user, rol, cartCount, onLogout, onLoginClick, onAbrirModalIA, 
             </svg>
             <span className="cart-count">{cartCount}</span>
           </a>
-        )}
       </div>
 
       {/* Hamburger button - only visible on mobile */}
@@ -77,8 +75,7 @@ function Navbar({ user, rol, cartCount, onLogout, onLoginClick, onAbrirModalIA, 
 
       {/* Desktop navigation - hidden on mobile */}
       <div className="navbar-right">
-        {user && (
-          <a className="cart-icon desktop-cart" onClick={onAbrirCarrito} aria-label="Abrir carrito">
+        <a className="cart-icon desktop-cart" onClick={onAbrirCarrito} aria-label="Abrir carrito">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 64 64"
@@ -96,7 +93,6 @@ function Navbar({ user, rol, cartCount, onLogout, onLoginClick, onAbrirModalIA, 
             </svg>
             <span className="cart-count">{cartCount}</span>
           </a>
-        )}
         
         {user ? (
           <>

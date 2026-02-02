@@ -135,14 +135,9 @@ const handleSave = async () => {
               <h1>{product.nombre}</h1>
               <p className="price">€{product.precio}</p>
               <p className="desc">{product.desc_long}</p>
-              {user && rol !== 'admin' && (
+              {!editing && (
   <button onClick={() => onAddToCart(product)}>
     Agregar al carrito
-  </button>
-)}
-{!user && (
-  <button onClick={() => alert('Inicia sesión para comprar')}>
-    Inicia sesión para comprar
   </button>
 )}
 
