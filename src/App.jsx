@@ -169,7 +169,7 @@ if (storedCart) {
         />
 
         <Route
-  path="/producto/:id"
+  path="/creacion/:id"
   element={
     <ProductDetail
       user={user}

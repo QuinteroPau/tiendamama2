@@ -5,7 +5,7 @@ import { supabase } from '../supabaseClient';
 function AdminProductList({ onProductChanged }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [deletingId, setDeletingId] = useState(null);
+  const [markingId, setMarkingId] = useState(null);
   const [errorMsg, setErrorMsg] = useState('');
 
   const fetchProducts = async () => {
@@ -19,23 +19,30 @@ function AdminProductList({ onProductChanged }) {
     fetchProducts();
   }, []);
 
-  const handleDelete = async (product) => {
+  const handleToggleVendido = async (product) => {
+    const nuevoEstado = !product.vendido;
+    const accion = nuevoEstado ? 'marcar como vendido' : 'marcar como disponible';
     const confirmar = window.confirm(
-      `¿Estás segura de que quieres eliminar "${product.nombre}"? Esta acción no se puede deshacer.`
+      `¿Quieres ${accion} "${product.nombre}"?`
     );
     if (!confirmar) return;
 
-    setDeletingId(product.id);
+    setMarkingId(product.id);
     setErrorMsg('');
 
-    const { error } = await supabase.from('productos').delete().eq('id', product.id);
+    const { error } = await supabase
+      .from('productos')
+      .update({ vendido: nuevoEstado })
+      .eq('id', product.id);
 
     if (error) {
-      setErrorMsg(error.message || 'Error al eliminar el producto');
-      setDeletingId(null);
+      setErrorMsg(error.message || 'Error al actualizar el producto');
+      setMarkingId(null);
     } else {
-      setProducts((prev) => prev.filter((p) => p.id !== product.id));
-      setDeletingId(null);
+      setProducts((prev) =>
+        prev.map((p) => (p.id === product.id ? { ...p, vendido: nuevoEstado } : p))
+      );
+      setMarkingId(null);
       if (onProductChanged) onProductChanged();
     }
   };
@@ -60,29 +67,30 @@ function AdminProductList({ onProductChanged }) {
       {errorMsg && <p className="error">{errorMsg}</p>}
       <div className="admin-products-grid">
         {products.map((product) => (
-          <div key={product.id} className="admin-product-card">
+          <div key={product.id} className={`admin-product-card ${product.vendido ? 'vendido' : ''}`}>
             <div className="admin-product-image">
               {product.foto ? (
                 <img src={product.foto} alt={product.nombre} />
               ) : (
                 <div className="admin-product-placeholder">Sin imagen</div>
               )}
+              {product.vendido && <span className="admin-badge-vendido">Vendido</span>}
             </div>
             <div className="admin-product-info">
               <h3>{product.nombre}</h3>
               <p className="admin-product-precio">€{product.precio}</p>
             </div>
             <div className="admin-product-actions">
-              <Link to={`/producto/${product.id}`} className="admin-btn admin-btn-edit">
+              <Link to={`/creacion/${product.id}`} className="admin-btn admin-btn-edit">
                 Editar
               </Link>
               <button
                 type="button"
-                className="admin-btn admin-btn-delete"
-                onClick={() => handleDelete(product)}
-                disabled={deletingId === product.id}
+                className="admin-btn admin-btn-vendido"
+                onClick={() => handleToggleVendido(product)}
+                disabled={markingId === product.id}
               >
-                {deletingId === product.id ? '...' : 'Borrar'}
+                {markingId === product.id ? '...' : product.vendido ? 'Disponible' : 'Vendido'}
               </button>
             </div>
           </div>

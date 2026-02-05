@@ -132,14 +132,36 @@ const handleSave = async () => {
             </>
           ) : (
             <>
+              {product.vendido && (
+                <div className="product-sold-banner">
+                  Vendido
+                </div>
+              )}
               <h1>{product.nombre}</h1>
               <p className="price">€{product.precio}</p>
               <p className="desc">{product.desc_long}</p>
-              {!editing && (
-  <button onClick={() => onAddToCart(product)}>
-    Agregar al carrito
-  </button>
-)}
+              {!editing && !product.vendido && (
+                <button onClick={() => onAddToCart(product)}>
+                  Agregar al carrito
+                </button>
+              )}
+              {!editing && product.vendido && (
+                <div className="product-sold-cta">
+                  <p className="product-sold-message">
+                    Esta pieza ya está vendida. ¿Buscas algo parecido o con el mismo mineral?
+                  </p>
+                  <a
+                    href={`https://wa.me/34619652983?text=${encodeURIComponent(
+                      `Hola, vi la creación "${product.nombre}" que ya está vendida. ¿Tienes algo parecido o con el mismo mineral?`
+                    )}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-escribir-parecido"
+                  >
+                    Escribir para algo parecido
+                  </a>
+                </div>
+              )}
 
               {user && rol === 'admin' && (
                 <button onClick={() => setEditing(true)} style={{ marginTop: '1rem' }}>

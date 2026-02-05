@@ -62,7 +62,8 @@ function AdminProductForm({ onProductAdded }) {
           precio: parseFloat(form.precio),
           desc: form.desc,
           desc_long: form.desc_long,
-          foto: imageUrl
+          foto: imageUrl,
+          vendido: false
         });
 
       if (error) throw error;
